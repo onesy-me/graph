@@ -39,11 +39,7 @@
 ### Add
 
 ```sh
-  // yarn
   yarn add @amaui/graph
-
-  // npm
-  npm install @amaui/graph
 ```
 
 ### Use cases
