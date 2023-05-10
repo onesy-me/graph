@@ -5,7 +5,7 @@ import { evaluate } from '../utils/js/test/utils';
 
 import AmauiGraph from '../src';
 
-group('@amaui/graph', () => {
+group('AmauiGraph', () => {
 
   to('AmauiGraph', async () => {
     const value = new AmauiGraph();

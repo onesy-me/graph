@@ -1,1 +1,1 @@
-export { default } from './amaui-graph';
+export { default } from './AmauiGraph';
