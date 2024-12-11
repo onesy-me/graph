@@ -2,7 +2,7 @@
   "name": "@onesy/graph",
   "version": "1.0.0",
   "description": "Graph",
-  "repository": "https://github.com/onesy-org/onesy-graph.git",
+  "repository": "https://github.com/onesy-me/graph.git",
   "author": "Lazar <lazareric2@gmail.com>",
   "license": "MIT",
   "private": false,
