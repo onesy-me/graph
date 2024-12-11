@@ -1,32 +1,32 @@
-import { is } from '@amaui/utils';
-import { TMethod } from '@amaui/models';
+import { is } from '@onesy/utils';
+import { TMethod } from '@onesy/models';
 
-export type TAmauiGraphNode = string | [string, number];
+export type TOnesyGraphNode = string | [string, number];
 
-export type TAmauiGraphAdjacency = Record<string, Array<TAmauiGraphNode>>;
+export type TOnesyGraphAdjacency = Record<string, Array<TOnesyGraphNode>>;
 
-export type TAmauiGraphDirection = 'directed' | 'undirected';
+export type TOnesyGraphDirection = 'directed' | 'undirected';
 
-export interface IAmauiGraphShortestPath {
+export interface IOnesyGraphShortestPath {
   distance: number;
   path: string;
 }
 
-export interface IAmauiGraphOptions {
-  adjacency?: TAmauiGraphAdjacency;
-  direction?: TAmauiGraphDirection;
+export interface IOnesyGraphOptions {
+  adjacency?: TOnesyGraphAdjacency;
+  direction?: TOnesyGraphDirection;
   weighted?: boolean;
 }
 
-export default class AmauiGraph {
-  public adjacency: TAmauiGraphAdjacency = {};
-  public direction: TAmauiGraphDirection = 'undirected';
+export default class OnesyGraph {
+  public adjacency: TOnesyGraphAdjacency = {};
+  public direction: TOnesyGraphDirection = 'undirected';
   public weighted = false;
   public nodes = 0;
   public connections = 0;
 
   public constructor(
-    options: IAmauiGraphOptions = {}
+    options: IOnesyGraphOptions = {}
   ) {
     const {
       adjacency,
@@ -62,7 +62,7 @@ export default class AmauiGraph {
     return array;
   }
 
-  public addNode(name: string): AmauiGraph {
+  public addNode(name: string): OnesyGraph {
     this.nodes++;
 
     // Adjacency
@@ -71,7 +71,7 @@ export default class AmauiGraph {
     return this;
   }
 
-  public addConnection(from: string, to: string, value: number = 1): AmauiGraph {
+  public addConnection(from: string, to: string, value: number = 1): OnesyGraph {
     // Both nodes exist
     if (this.adjacency[from] && this.adjacency[to]) {
       this.adjacency[from].push(this.weighted ? [to, value] : to);
@@ -87,8 +87,8 @@ export default class AmauiGraph {
     return this;
   }
 
-  public updateConnection(from: string, to: string, value: number): AmauiGraph {
-    // Both nodes exist and amauiGraph is weighted
+  public updateConnection(from: string, to: string, value: number): OnesyGraph {
+    // Both nodes exist and onesyGraph is weighted
     if (this.adjacency[from] && this.adjacency[to] && this.weighted) {
       const itemFrom = this.adjacency[from].find(item => item[0] === to);
 
@@ -104,7 +104,7 @@ export default class AmauiGraph {
     return this;
   }
 
-  public removeNode(name: string): AmauiGraph {
+  public removeNode(name: string): OnesyGraph {
     if (this.adjacency[name]) {
       for (const node of this.adjacency[name]) this.removeConnection(name, (this.weighted ? node[0] : node) as string);
 
@@ -119,7 +119,7 @@ export default class AmauiGraph {
     return this;
   }
 
-  public removeConnection(from: string, to: string): AmauiGraph {
+  public removeConnection(from: string, to: string): OnesyGraph {
     if (this.adjacency[from] && this.adjacency[to]) {
       this.adjacency[from] = this.adjacency[from].filter(item => {
         const result = this.weighted ? item[0] !== to : item !== to;
@@ -143,9 +143,9 @@ export default class AmauiGraph {
     return this;
   }
 
-  public shortestPath(from: string, to: string): IAmauiGraphShortestPath {
+  public shortestPath(from: string, to: string): IOnesyGraphShortestPath {
     const visited = {};
-    const stack: Array<[TAmauiGraphNode, string]> = [];
+    const stack: Array<[TOnesyGraphNode, string]> = [];
     const distances = {};
     const paths = {};
 
@@ -154,7 +154,7 @@ export default class AmauiGraph {
 
     distances[from] = 0;
 
-    const method = (node: TAmauiGraphNode, path = '') => {
+    const method = (node: TOnesyGraphNode, path = '') => {
       const name = (is('string', node) ? node : this.weighted ? node[0] : node) as string;
       const weight = is('string', node) ? 0 : this.weighted ? node[1] : 1;
 
@@ -192,11 +192,11 @@ export default class AmauiGraph {
     };
   }
 
-  public bfs(from: string, method: TMethod): AmauiGraph {
+  public bfs(from: string, method: TMethod): OnesyGraph {
     const visited = {};
-    const stack: Array<TAmauiGraphNode> = [from];
+    const stack: Array<TOnesyGraphNode> = [from];
 
-    const bfsMethod = (node: TAmauiGraphNode) => {
+    const bfsMethod = (node: TOnesyGraphNode) => {
       const name = (this.weighted ? node[0] : node) as string;
 
       // Add to visited
@@ -220,11 +220,11 @@ export default class AmauiGraph {
     return this;
   }
 
-  public dfs(from: string, method: TMethod): AmauiGraph {
+  public dfs(from: string, method: TMethod): OnesyGraph {
     const visited = {};
-    const stack: Array<TAmauiGraphNode> = [from];
+    const stack: Array<TOnesyGraphNode> = [from];
 
-    const dfsMethod = (node: TAmauiGraphNode) => {
+    const dfsMethod = (node: TOnesyGraphNode) => {
       const name = (this.weighted ? node[0] : node) as string;
 
       // Add to visited
@@ -248,7 +248,7 @@ export default class AmauiGraph {
     return this;
   }
 
-  public clear(): AmauiGraph {
+  public clear(): OnesyGraph {
     this.adjacency = {};
     this.nodes = 0;
     this.connections = 0;

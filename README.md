@@ -4,11 +4,11 @@
 
 <p align='center'>
   <a target='_blank' rel='noopener noreferrer' href='#'>
-    <img src='utils/images/logo.svg' alt='amaui logo' />
+    <img src='utils/images/logo.svg' alt='onesy logo' />
   </a>
 </p>
 
-<h1 align='center'>amaui Graph</h1>
+<h1 align='center'>onesy Graph</h1>
 
 <p align='center'>
   Graph
@@ -39,7 +39,7 @@
 ### Add
 
 ```sh
-yarn add @amaui/graph
+yarn add @onesy/graph
 ```
 
 ### Use cases
@@ -51,13 +51,13 @@ yarn add @amaui/graph
 ### Use
 
 ```javascript
-  import AmauiGraph from '@amaui/graph';
+  import OnesyGraph from '@onesy/graph';
 
   // Make a new graph instance
-  const amauiGraph = new AmauiGraph({ weighted: true });
+  const onesyGraph = new OnesyGraph({ weighted: true });
 
   // Add nodes
-  amauiGraph
+  onesyGraph
     .addNode('a')
     .addNode('b')
     .addNode('c')
@@ -67,7 +67,7 @@ yarn add @amaui/graph
     .addNode('g');
 
   // Add connections
-  amauiGraph
+  onesyGraph
     .addConnection('a', 'b', 2)
     .addConnection('a', 'c', 7)
     .addConnection('b', 'd', 5)
@@ -79,7 +79,7 @@ yarn add @amaui/graph
     .addConnection('e', 'g', 4);
 
   // matrix
-  amauiGraph.array;
+  onesyGraph.array;
 
   // [
   //      a  b  c  d  e  f  g
@@ -93,7 +93,7 @@ yarn add @amaui/graph
   // ]
 
   // Shortest path
-  amauiGraph.shortestPath('a', 'g');
+  onesyGraph.shortestPath('a', 'g');
 
   // {
   //   distance: 20,
